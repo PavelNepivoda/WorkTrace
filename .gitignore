@@ -9,11 +9,14 @@
 *.user
 *.userosscache
 *.sln.docstates
-appsettings.json
-appsettings.*.json
+
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
+
+# User
+appsettings.json
+appsettings.*.json
 
 # Mono auto generated files
 mono_crash.*

@@ -1,0 +1,62 @@
+﻿@using WorkTrace.Models.ViewModel
+@model AttendanceRecord
+@{
+    ViewData["Title"] = "Vytvořit záznam docházky";
+}
+
+<h1>Vytvořit záznam docházky</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="EmployeeId" class="control-label"></label>
+                <select asp-for="EmployeeId" class="form-control" asp-items="ViewBag.Employees"></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" type="date" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="StartTime" class="control-label"></label>
+                <input asp-for="StartTime" class="form-control" type="datetime-local" />
+                <span asp-validation-for="StartTime" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EndTime" class="control-label"></label>
+                <input asp-for="EndTime" class="form-control" type="datetime-local" />
+                <span asp-validation-for="EndTime" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="BreakStart" class="control-label"></label>
+                <input asp-for="BreakStart" class="form-control" type="datetime-local" />
+                <span asp-validation-for="BreakStart" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="BreakEnd" class="control-label"></label>
+                <input asp-for="BreakEnd" class="form-control" type="datetime-local" />
+                <span asp-validation-for="BreakEnd" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-3">
+                <input type="submit" value="Vytvořit" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Zpět na seznam</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

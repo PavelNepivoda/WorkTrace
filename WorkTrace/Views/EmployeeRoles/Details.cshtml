@@ -1,0 +1,21 @@
+﻿@model EmployeeRole
+@{
+    ViewData["Title"] = "Detaily role";
+}
+
+<h1>Detaily role</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Název</dt>
+        <dd class="col-sm-10">@Model.Name</dd>
+
+        <dt class="col-sm-2">Popis</dt>
+        <dd class="col-sm-10">@Model.Description</dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Upravit</a>
+    <a asp-action="Index" class="btn btn-secondary">Zpět na seznam</a>
+</div>

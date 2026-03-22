@@ -1,0 +1,58 @@
+﻿@model IEnumerable<AttendanceRecord>
+@{
+    ViewData["Title"] = "Záznamy docházky";
+}
+
+<h1>Záznamy docházky</h1>
+
+<form method="get" class="row g-3 mb-3">
+    <div class="col-auto">
+        <input type="date" name="from" class="form-control" placeholder="Od" />
+    </div>
+    <div class="col-auto">
+        <input type="date" name="to" class="form-control" placeholder="Do" />
+    </div>
+    <div class="col-auto">
+        <select name="employeeId" class="form-select" asp-items="ViewBag.Employees">
+            <option value="">-- Všichni zaměstnanci --</option>
+        </select>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Filtrovat</button>
+    </div>
+</form>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Vytvořit nový záznam</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Zaměstnanec</th>
+            <th>Datum</th>
+            <th>Začátek</th>
+            <th>Konec</th>
+            <th>Přestávka</th>
+            <th>Odprac. čas (hod.)</th>
+            <th>Akce</th>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Employee?.FullName</td>
+                <td>@item.Date.ToShortDateString()</td>
+                <td>@(item.StartTime?.ToShortTimeString() ?? "-")</td>
+                <td>@(item.EndTime?.ToShortTimeString() ?? "-")</td>
+                <td>@(item.BreakStart?.ToShortTimeString()) – @(item.BreakEnd?.ToShortTimeString())</td>
+                <td>@(item.TotalWorkTime?.TotalHours.ToString("F2") ?? "0")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Upravit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Detaily</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Smazat</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

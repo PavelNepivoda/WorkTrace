@@ -1,0 +1,45 @@
+﻿@model Employee
+@{
+    ViewData["Title"] = "Detaily zaměstnance";
+}
+
+<h1>Detaily zaměstnance</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Jméno</dt>
+        <dd class="col-sm-10">@Model.FirstName</dd>
+
+        <dt class="col-sm-2">Příjmení</dt>
+        <dd class="col-sm-10">@Model.LastName</dd>
+
+        <dt class="col-sm-2">Email</dt>
+        <dd class="col-sm-10">@Model.Email</dd>
+
+        <dt class="col-sm-2">Telefon</dt>
+        <dd class="col-sm-10">@Model.Phone</dd>
+
+        <dt class="col-sm-2">PIN kód</dt>
+        <dd class="col-sm-10">@Model.PINCode</dd>
+
+        <dt class="col-sm-2">Datum nástupu</dt>
+        <dd class="col-sm-10">@Model.HireDate.ToShortDateString()</dd>
+
+        <dt class="col-sm-2">Role</dt>
+        <dd class="col-sm-10">@(Model.Role?.Name ?? "-")</dd>
+
+        <dt class="col-sm-2">Typ smlouvy</dt>
+        <dd class="col-sm-10">@(Model.ContractType?.Name ?? "-")</dd>
+
+        <dt class="col-sm-2">Hodinová mzda</dt>
+        <dd class="col-sm-10">@(Model.ContractType?.HourlyWage.ToString("C") ?? "-")</dd>
+
+        <dt class="col-sm-2">Pobočka</dt>
+        <dd class="col-sm-10">@(Model.Branch?.Name ?? "-")</dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Upravit</a>
+    <a asp-action="Index" class="btn btn-secondary">Zpět na seznam</a>
+</div>

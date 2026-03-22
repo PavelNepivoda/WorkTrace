@@ -1,0 +1,19 @@
+﻿@model WorkTrace.Models.AbsenceType
+@{
+    ViewData["Title"] = "Smazat typ absence";
+}
+<h1>Smazat typ absence</h1>
+<h3>Opravdu chcete tento typ smazat?</h3>
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">Název</dt>
+        <dd class="col-sm-10">@Model.Name</dd>
+        <dt class="col-sm-2">Popisek</dt>
+        <dd class="col-sm-10">@Model.Description</dd>
+    </dl>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Smazat" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">Zpět na seznam</a>
+    </form>
+</div>

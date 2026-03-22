@@ -1,0 +1,44 @@
+﻿@model IEnumerable<WorkTrace.Models.Employee>
+@{
+    ViewData["Title"] = "Zaměstnanci";
+}
+
+<h1>Zaměstnanci</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Nový zaměstnanec</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Jméno</th>
+            <th>Příjmení</th>
+            <th>Email</th>
+            <th>Telefon</th>
+            <th>PIN kód</th>
+            <th>Pobočka</th>
+            <th>Nástup</th>
+            <th>Akce</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.Email</td>
+                <td>@item.Phone</td>
+                <td>@item.PINCode</td>
+                <td>@(item.Branch?.Name ?? "-")</td>
+                <td>@item.HireDate.ToShortDateString()</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Upravit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Detaily</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Smazat</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,87 @@
+﻿@model Employee
+@{
+    ViewData["Title"] = "Upravit zaměstnance";
+}
+
+<h1>Upravit zaměstnance</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PINCode" class="control-label"></label>
+                <input asp-for="PINCode" class="form-control" maxlength="4" />
+                <span asp-validation-for="PINCode" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="HireDate" class="control-label"></label>
+                <input asp-for="HireDate" class="form-control" type="date" />
+                <span asp-validation-for="HireDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="RoleId" class="control-label">Role</label>
+                <select asp-for="RoleId" class="form-control" asp-items="ViewBag.Roles">
+                    <option value="">-- Vyberte roli --</option>
+                </select>
+                <span asp-validation-for="RoleId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ContractTypeId" class="control-label">Typ smlouvy</label>
+                <select asp-for="ContractTypeId" class="form-control" asp-items="ViewBag.ContractTypes">
+                    <option value="">-- Vyberte typ smlouvy --</option>
+                </select>
+                <span asp-validation-for="ContractTypeId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="BranchId" class="control-label">Pobočka</label>
+                <select asp-for="BranchId" class="form-control" asp-items="ViewBag.Branches">
+                    <option value="">-- Vyberte pobočku --</option>
+                </select>
+                <span asp-validation-for="BranchId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-3">
+                <input type="submit" value="Uložit" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Zpět na seznam</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

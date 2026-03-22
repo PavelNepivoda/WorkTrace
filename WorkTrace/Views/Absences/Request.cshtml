@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Žádost o absenci";
+}
+
+<h1>Žádost o absenci</h1>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<form asp-action="Request" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label for="pinCode" class="control-label">PIN kód</label>
+        <input type="password" name="pinCode" class="form-control" maxlength="4" required />
+        <span class="text-danger"></span>
+        <small class="form-text text-muted">Zadejte svůj 4místný PIN.</small>
+    </div>
+    <div class="form-group mt-3">
+        <button type="submit" class="btn btn-primary">Pokračovat</button>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Zpět</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

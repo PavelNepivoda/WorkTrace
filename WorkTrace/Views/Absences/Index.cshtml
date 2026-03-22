@@ -1,0 +1,78 @@
+﻿@model IEnumerable<WorkTrace.Models.Absence>
+@{
+    ViewData["Title"] = "Absence";
+}
+
+<h1>Žádosti o absenci</h1>
+
+<form method="get" class="row g-3 mb-3">
+    <div class="col-auto">
+        <input type="date" name="startDate" class="form-control" placeholder="Od" />
+    </div>
+    <div class="col-auto">
+        <input type="date" name="endDate" class="form-control" placeholder="Do" />
+    </div>
+    <div class="col-auto">
+        <select name="employeeId" class="form-select" asp-items="ViewBag.Employees">
+            <option value="">-- Všichni zaměstnanci --</option>
+        </select>
+    </div>
+    <div class="col-auto">
+        <select name="status" class="form-select" asp-items="ViewBag.Statuses">
+            <option value="">-- Všechny stavy --</option>
+        </select>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Filtrovat</button>
+    </div>
+</form>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Nová žádost</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Zaměstnanec</th>
+            <th>Typ absence</th>
+            <th>Od</th>
+            <th>Do</th>
+            <th>Důvod</th>
+            <th>Stav</th>
+            <th>Žádost podána</th>
+            <th>Akce</th>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Employee?.FullName</td>
+                <td>@item.AbsenceType?.Name</td>
+                <td>@item.StartDate.ToShortDateString()</td>
+                <td>@item.EndDate.ToShortDateString()</td>
+                <td>@item.Reason</td>
+                <td>
+                    @if (item.Status == AbsenceStatus.Pending)
+                    {
+                        <span class="badge bg-warning">Čeká na schválení</span>
+                    }
+                    else if (item.Status == AbsenceStatus.Approved)
+                    {
+                        <span class="badge bg-success">Schváleno</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">Zamítnuto</span>
+                    }
+                </td>
+                <td>@item.RequestedDate.ToShortDateString()</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Upravit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Detaily</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Smazat</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

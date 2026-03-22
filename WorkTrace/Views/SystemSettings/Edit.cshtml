@@ -1,0 +1,40 @@
+﻿@model SystemSetting
+@{
+    ViewData["Title"] = "Nastavení systému";
+}
+
+<h1>Nastavení systému</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Key" />
+
+            <div class="form-group">
+                <label class="control-label">Počet hodin v pracovním dni</label>
+                <input asp-for="Value" class="form-control" type="number" step="0.5" min="1" max="24" />
+                <span asp-validation-for="Value" class="text-danger"></span>
+                <small class="form-text text-muted">Tato hodnota se používá pro převod dnů absence na hodiny v analýze.</small>
+            </div>
+
+            <div class="form-group mt-3">
+                <input type="submit" value="Uložit" class="btn btn-primary" />
+                <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Zpět</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success mt-3">@TempData["Success"]</div>
+    <div class="alert alert-info mt-3">Aktuální hodnota: @Model.Value h</div>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

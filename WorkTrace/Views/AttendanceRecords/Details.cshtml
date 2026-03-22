@@ -1,0 +1,37 @@
+﻿@using WorkTrace.Models.ViewModel
+@model AttendanceRecord
+@{
+    ViewData["Title"] = "Detaily záznamu";
+}
+
+<h1>Detaily záznamu docházky</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Zaměstnanec</dt>
+        <dd class="col-sm-10">@Model.Employee?.FullName</dd>
+
+        <dt class="col-sm-2">Datum</dt>
+        <dd class="col-sm-10">@Model.Date.ToShortDateString()</dd>
+
+        <dt class="col-sm-2">Začátek práce</dt>
+        <dd class="col-sm-10">@(Model.StartTime?.ToShortTimeString() ?? "-")</dd>
+
+        <dt class="col-sm-2">Konec práce</dt>
+        <dd class="col-sm-10">@(Model.EndTime?.ToShortTimeString() ?? "-")</dd>
+
+        <dt class="col-sm-2">Začátek přestávky</dt>
+        <dd class="col-sm-10">@(Model.BreakStart?.ToShortTimeString() ?? "-")</dd>
+
+        <dt class="col-sm-2">Konec přestávky</dt>
+        <dd class="col-sm-10">@(Model.BreakEnd?.ToShortTimeString() ?? "-")</dd>
+
+        <dt class="col-sm-2">Odpracovaný čas</dt>
+        <dd class="col-sm-10">@(Model.TotalWorkTime?.ToString(@"hh\:mm") ?? "-")</dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Upravit</a>
+    <a asp-action="Index" class="btn btn-secondary">Zpět na seznam</a>
+</div>

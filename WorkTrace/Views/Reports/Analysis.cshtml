@@ -1,0 +1,59 @@
+﻿@model AnalysisViewModel
+@{
+    ViewData["Title"] = "Analýza";
+}
+<h1>Analýza pracovní doby</h1>
+
+<form method="get" class="row g-3 mb-3">
+    <div class="col-md-4">
+        <label>Zaměstnanec</label>
+        <select name="employeeId" class="form-control" asp-items="ViewBag.Employees">
+            <option value="">-- Všichni zaměstnanci --</option>
+        </select>
+    </div>
+    <div class="col-md-3">
+        <label>Od</label>
+        <input type="date" name="from" class="form-control" value="@Model.StartDate.ToString("yyyy-MM-dd")" />
+    </div>
+    <div class="col-md-3">
+        <label>Do</label>
+        <input type="date" name="to" class="form-control" value="@Model.EndDate.ToString("yyyy-MM-dd")" />
+    </div>
+    <div class="col-md-2 align-self-end">
+        <button type="submit" class="btn btn-primary">Zobrazit</button>
+    </div>
+</form>
+
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <h3>Celkové údaje</h3>
+        <p>Odpracované hodiny: @Model.TotalWorkHours.ToString("F2") h</p>
+        <p>Celková mzda: @Model.TotalWage.ToString("C")</p>
+        <p>Absence (dny): @Model.TotalAbsenceDays.ToString("F0")</p>
+        <p>Absence (hodiny, @ViewBag.WorkingDayHours h/den): @Model.TotalAbsenceHours.ToString("F2") h</p>
+    </div>
+    <div class="col-md-6">
+        <canvas id="chart" width="400" height="200"></canvas>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var workHours = @Model.TotalWorkHours.ToString(System.Globalization.CultureInfo.InvariantCulture);
+        var absenceHours = @Model.TotalAbsenceHours.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
+        var ctx = document.getElementById('chart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Odpracované hodiny', 'Absence (hodiny)'],
+                datasets: [{
+                    data: [workHours, absenceHours],
+                    backgroundColor: ['#28a745', '#dc3545']
+                }]
+            }
+        });
+    </script>
+}

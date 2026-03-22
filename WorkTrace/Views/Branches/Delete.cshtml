@@ -1,0 +1,19 @@
+﻿@model WorkTrace.Models.Branch
+@{
+    ViewData["Title"] = "Smazat pobočku";
+}
+<h1>Smazat pobočku</h1>
+<h3>Opravdu chcete tuto pobočku smazat?</h3>
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">Název</dt>
+        <dd class="col-sm-10">@Model.Name</dd>
+        <dt class="col-sm-2">Adresa</dt>
+        <dd class="col-sm-10">@Model.Address</dd>
+    </dl>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Smazat" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">Zpět na seznam</a>
+    </form>
+</div>

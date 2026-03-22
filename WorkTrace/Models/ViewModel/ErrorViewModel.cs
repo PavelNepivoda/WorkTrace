@@ -1,4 +1,4 @@
-namespace WorkTrace.Models
+namespace WorkTrace.Models.ViewModel
 {
     public class ErrorViewModel
     {

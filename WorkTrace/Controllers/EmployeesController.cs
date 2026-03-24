@@ -26,21 +26,33 @@ namespace WorkTrace.Controllers
             _contractTypeRepository = contractTypeRepository;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(Guid? branchId)
         {
             var employees = await _employeeRepository.GetAllAsync();
-            var branches = (await _branchRepository.GetAllAsync()).ToDictionary(b => b.Id);
+            var branches = (await _branchRepository.GetAllAsync()).ToList();
+
+            if (branchId.HasValue)
+            {
+                employees = employees.Where(e => e.BranchId == branchId.Value);
+            }
+
+            var branchDict = branches.ToDictionary(b => b.Id);
             var roles = (await _roleRepository.GetAllAsync()).ToDictionary(r => r.Id);
             var contracts = (await _contractTypeRepository.GetAllAsync()).ToDictionary(c => c.Id);
+
             foreach (var emp in employees)
             {
-                if (emp.BranchId.HasValue && branches.TryGetValue(emp.BranchId.Value, out var b))
+                if (emp.BranchId.HasValue && branchDict.TryGetValue(emp.BranchId.Value, out var b))
                     emp.Branch = b;
                 if (emp.RoleId.HasValue && roles.TryGetValue(emp.RoleId.Value, out var r))
                     emp.Role = r;
                 if (emp.ContractTypeId.HasValue && contracts.TryGetValue(emp.ContractTypeId.Value, out var ct))
                     emp.ContractType = ct;
             }
+
+            ViewBag.Branches = new SelectList(branches, "Id", "Name");
+            ViewBag.SelectedBranchId = branchId;
+
             return View(employees);
         }
 

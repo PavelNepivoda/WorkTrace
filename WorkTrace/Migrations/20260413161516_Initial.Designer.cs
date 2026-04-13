@@ -12,15 +12,15 @@ using WorkTrace.Data;
 namespace WorkTrace.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260322181958_SystemSettings")]
-    partial class SystemSettings
+    [Migration("20260413161516_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.0")
+                .HasAnnotation("ProductVersion", "8.0.23")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);

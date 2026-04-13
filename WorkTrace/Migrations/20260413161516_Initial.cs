@@ -106,6 +106,19 @@ namespace WorkTrace.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SystemSettings",
+                columns: table => new
+                {
+                    Key = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SystemSettings", x => x.Key);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -306,7 +319,6 @@ namespace WorkTrace.Migrations
                 {
                     { new Guid("11111111-1111-1111-1111-111111111111"), "Placená dovolená", "Dovolená" },
                     { new Guid("22222222-2222-2222-2222-222222222222"), "Nemocenská", "Nemoc" },
-                    { new Guid("33333333-3333-3333-3333-333333333333"), "Práce z domova", "Home office" },
                     { new Guid("44444444-4444-4444-4444-444444444444"), "", "Neplacené volno" }
                 });
 
@@ -329,6 +341,11 @@ namespace WorkTrace.Migrations
                     { new Guid("22222222-2222-2222-2222-222222222222"), "Vedoucí", "Manažer" },
                     { new Guid("33333333-3333-3333-3333-333333333333"), "Administrátor systému", "Admin" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "SystemSettings",
+                columns: new[] { "Key", "Description", "Value" },
+                values: new object[] { "WorkingDayHours", "Počet hodin v pracovním dni (pro převod absencí na hodiny)", "8" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Absences_AbsenceTypeId",
@@ -430,6 +447,9 @@ namespace WorkTrace.Migrations
 
             migrationBuilder.DropTable(
                 name: "AttendanceRecords");
+
+            migrationBuilder.DropTable(
+                name: "SystemSettings");
 
             migrationBuilder.DropTable(
                 name: "AbsenceTypes");

@@ -31,3 +31,6 @@ Systém využívá aplikační role ASP.NET Core Identity:
 - **Žádost o absenci** – typ absence, období, důvod, stav (čeká, schváleno, zamítnuto)
 - **Ostatní** – pobočky, typy úvazků (HPP, DPP, DPČ s hodinovou mzdou), typy absencí (dovolená, nemoc, neplacené volno), pracovní role pro HR
 - **Systémová nastavení** – klíč–hodnota pro konfiguraci (např. délka pracovního dne)
+
+![Example Image](Hlavní_strana_bez_přihlášení.png)
+![Example Image](Příihlášení.png)
